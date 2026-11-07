@@ -1,0 +1,66 @@
+@use '../../styles/variables' as *;
+
+.game-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+
+  .search-box,
+  select {
+    height: 48px;
+    background-color: $surface;
+    border: 1px solid rgba(155, 93, 229, 0.3);
+    border-radius: 8px;
+    color: $text;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 14px;
+
+    svg {
+      color: $text-muted;
+      flex-shrink: 0;
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: $text;
+
+      &::placeholder {
+        color: $text-muted;
+      }
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 0 12px;
+    cursor: pointer;
+  }
+
+  .search-box:focus-within,
+  select:focus-visible {
+    outline: 2px solid $primary;
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 767px) {
+  .game-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+
+    .search-box {
+      grid-column: 1 / -1;
+    }
+  }
+}

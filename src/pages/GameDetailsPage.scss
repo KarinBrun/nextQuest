@@ -1,0 +1,218 @@
+@use '../styles/variables' as *;
+
+.game-details-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.game-details-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.game-details-cover {
+  img {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+}
+
+.game-details-info {
+  h1 {
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+}
+
+.game-details-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f5c542;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.game-description {
+  color: $text-muted;
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0 0 32px;
+}
+
+.game-metadata {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+
+  h2 {
+    color: $text-muted;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+.wishlist-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background-color: $primary;
+  color: $text;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #8546d1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $text;
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 767px) {
+  .game-details-page {
+    padding: 24px 16px;
+  }
+
+  .game-details-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .game-details-cover {
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 260px;
+    }
+  }
+
+  .game-details-info h1 {
+    font-size: 30px;
+  }
+
+  .game-description {
+    font-size: 15px;
+  }
+
+  .game-metadata {
+    gap: 20px;
+  }
+
+  .wishlist-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 359px) {
+  .game-metadata {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Modal overlay
+.game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.game-modal {
+  position: relative;
+  width: 100%;
+  max-width: 1050px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  background-color: $surface;
+  border: 1px solid rgba(155, 93, 229, 0.3);
+  border-radius: 16px;
+}
+
+.game-modal .game-details-page {
+  padding: 48px 32px;
+}
+
+.game-modal .game-details-layout {
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 32px;
+}
+
+.game-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: $text;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+@media (max-width: 767px) {
+  .game-modal-overlay {
+    padding: 12px;
+  }
+
+  .game-modal {
+    max-height: 92vh;
+  }
+
+  .game-modal .game-details-page {
+    padding: 56px 20px 24px;
+  }
+
+  .game-modal .game-details-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

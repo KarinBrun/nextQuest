@@ -1,0 +1,5 @@
+@media (max-width: 767px) {
+  .with-bottom-nav {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom));
+  }
+}

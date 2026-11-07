@@ -1,0 +1,131 @@
+@use '../../styles/variables' as *;
+
+.game-card {
+  display: block;
+  background-color: $surface;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(155, 93, 229, 0.2);
+  }
+
+  &:focus-within {
+    outline: 2px solid $primary;
+    outline-offset: 3px;
+  }
+}
+
+.game-card-image {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: $background;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.game-card-content {
+  padding: 16px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+}
+
+.game-card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.game-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #f5c542;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.game-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  span {
+    font-size: 11px;
+    color: $text-muted;
+    background-color: rgba(255, 255, 255, 0.06);
+    padding: 4px 7px;
+    border-radius: 4px;
+  }
+}
+
+@media (max-width: 767px) {
+  .game-card-content {
+    padding: 12px;
+
+    h3 {
+      font-size: 15px;
+    }
+  }
+
+  .game-card-details {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .game-platforms span {
+    font-size: 10px;
+  }
+}
+
+.game-card-link {
+  display: block;
+}
+
+.game-card-actions {
+  padding: 0 16px 16px;
+}
+
+.remove-game-button {
+  width: 100%;
+  padding: 10px 16px;
+
+  background-color: transparent;
+  color: #ff6b7a;
+  border: 1px solid #ff6b7a;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 107, 122, 0.12);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ff6b7a;
+    outline-offset: 3px;
+  }
+}
+
+@media (max-width: 767px) {
+  .game-card-actions {
+    padding: 0 12px 12px;
+  }
+}
