@@ -1,0 +1,191 @@
+@use '../styles/variables' as *;
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 160px);
+  padding: 3rem 1.5rem;
+
+  background-image:
+    linear-gradient(
+      rgba(15, 16, 32, 0.15),
+      rgba(15, 16, 32, 0.3)
+    ),
+    url('../assets/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &__card {
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+    background: $surface;
+    border-radius: 16px;
+
+    h1 {
+      margin-bottom: 0.75rem;
+      color: $text;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    > p {
+      margin-bottom: 1.75rem;
+      color: $text-muted;
+      text-align: center;
+      line-height: 1.6;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+
+    label {
+      color: $text;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      color: $text;
+      background: $background;
+      border: 1px solid #3a3a55;
+      border-radius: 8px;
+      font: inherit;
+
+      &:focus-visible {
+        outline: 2px solid $primary;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+    &__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+        input {
+            width: 100%;
+            padding-right: 3rem;
+        }
+    }
+
+    &__visibility-toggle {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+
+    color: $text-muted;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+        &:hover {
+            color: $text;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $primary;
+            outline-offset: 2px;
+        }
+    }
+
+  &__error,
+  &__success {
+    margin-bottom: 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  &__error {
+    color: #ffb4b4;
+    background: rgba(220, 53, 69, 0.12);
+    border: 1px solid rgba(220, 53, 69, 0.35);
+  }
+
+  &__success {
+    color: #a5e8c2;
+    background: rgba(40, 167, 69, 0.12);
+    border: 1px solid rgba(40, 167, 69, 0.35);
+  }
+
+  form button[type='submit'] {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    margin-top: 0.5rem;
+    color: $text;
+    background: $primary;
+    border: none;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: #874bd0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $text;
+      outline-offset: 3px;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  a {
+    color: $primary;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary;
+      outline-offset: 3px;
+    }
+  }
+
+  form + p {
+    margin-top: 1.75rem;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+
+    &__card {
+      padding: 1.75rem 1.25rem;
+
+      h1 {
+        font-size: 1.65rem;
+      }
+    }
+  }
+}
