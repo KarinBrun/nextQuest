@@ -15,6 +15,7 @@ import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
 
 import { WishlistProvider } from './context/WishlistContext';
+import { AuthProvider } from './context/AuthContext';
 
 function AppRoutes() {
   const location = useLocation();
@@ -47,11 +48,13 @@ function AppRoutes() {
 
 function App() {
   return (
-    <WishlistProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </WishlistProvider>
+    <AuthProvider>
+      <WishlistProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </WishlistProvider>
+    </AuthProvider>
   );
 }
 
