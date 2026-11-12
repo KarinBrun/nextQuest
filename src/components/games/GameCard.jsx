@@ -1,9 +1,24 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Star } from 'lucide-react';
+import { useState } from 'react';
 import './GameCard.scss';
 
 function GameCard({ game, onRemove }) {
   const location = useLocation();
+
+  const [removing, setRemoving] = useState(false);
+
+  const handleRemove = async () => {
+    if (removing || !onRemove) return;
+
+    setRemoving(true);
+
+    try {
+      await onRemove(game.id);
+    } finally {
+      setRemoving(false);
+    }
+  };
 
   const platforms = game.parent_platforms || [];
   const visiblePlatforms = platforms.slice(0, 3);
@@ -57,10 +72,11 @@ function GameCard({ game, onRemove }) {
           <button
             type="button"
             className="remove-game-button"
-            onClick={() => onRemove(game.id)}
+            onClick={handleRemove}
+            disabled={removing}
             aria-label={`Remove ${game.name} from Want to Play`}
           >
-            Remove
+            {removing ? 'Removing...' : 'Remove'}
           </button>
         </div>
       )}
