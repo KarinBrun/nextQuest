@@ -13,6 +13,7 @@ import WantToPlayPage from './pages/WantToPlayPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import { WishlistProvider } from './context/WishlistContext';
 import { AuthProvider } from './context/AuthContext';
@@ -27,7 +28,9 @@ function AppRoutes() {
         <Route element={<Layout />}>
           <Route path="/" element={<DiscoverPage />} />
           <Route path="/games/:id" element={<GameDetailsPage />} />
-          <Route path="/wishlist" element={<WantToPlayPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/wishlist" element={<WantToPlayPage />} />
+          </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminPage />} />

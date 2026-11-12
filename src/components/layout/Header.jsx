@@ -1,5 +1,4 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { UserRound } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../../context/useAuth';
 import './Header.scss';
@@ -66,13 +65,24 @@ function Header() {
           )}
         </div>
 
-        <Link
-          to={user ? '/wishlist' : '/login'}
-          className="mobile-account"
-          aria-label={user ? 'Want to Play account' : 'Login'}
-        >
-          <UserRound size={24} />
-        </Link>
+        <div className="mobile-auth">
+          {!loading && (
+            user ? (
+              <button
+                type="button"
+                className="logout-button"
+                onClick={handleLogout}
+                disabled={loggingOut}
+              >
+                {loggingOut ? 'Logging Out...' : 'Logout'}
+              </button>
+            ) : (
+              <Link to="/login" className="login-link">
+                Login
+              </Link>
+            )
+          )}
+        </div>
       </div>
 
       {error && (

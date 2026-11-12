@@ -118,20 +118,34 @@
   }
 }
 
-.mobile-account {
+.mobile-auth {
   display: none;
 }
 
 @media (max-width: 767px) {
-  .mobile-account {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $text;
-    padding: 8px;
 
-    &:hover {
-      color: $primary;
+.mobile-auth {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-auth {
+      display: flex;
+      align-items: center;
+
+      .login-link {
+        color: $text;
+        font-weight: 500;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+
+      .logout-button {
+        padding: 8px 14px;
+        font-size: 0.875rem;
+      }
     }
   }
 }
