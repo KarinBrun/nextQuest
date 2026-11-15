@@ -1,0 +1,123 @@
+@use '../styles/variables' as *;
+
+.admin-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 32px;
+}
+
+.admin-heading {
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+
+  p {
+    color: $text-muted;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.admin-summary {
+  background-color: $surface;
+  border: 1px solid rgba(155, 93, 229, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+
+  h2 {
+    color: $text-muted;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 8px;
+  }
+
+  .admin-user-count {
+    color: $text;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+  }
+}
+
+.admin-table-wrapper {
+  background-color: $surface;
+  border: 1px solid rgba(155, 93, 229, 0.2);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th,
+  td {
+    padding: 18px 24px;
+  }
+
+  th {
+    color: $text-muted;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(155, 93, 229, 0.2);
+  }
+
+  td {
+    color: $text;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background-color: rgba(155, 93, 229, 0.06);
+  }
+}
+
+.admin-message {
+  color: $text-muted;
+  padding: 24px 0;
+}
+
+.admin-error {
+  color: #ff8080;
+  padding: 16px 0;
+}
+
+@media (max-width: 767px) {
+  .admin-page {
+    padding: 24px 16px;
+  }
+
+  .admin-heading {
+    margin-bottom: 24px;
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .admin-summary {
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .admin-table {
+    th,
+    td {
+      padding: 16px;
+      font-size: 13px;
+    }
+  }
+}

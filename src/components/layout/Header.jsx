@@ -1,6 +1,7 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/useAuth';
+import { supabase } from '../../services/supabase';
 import './Header.scss';
 
 function Header() {
@@ -8,6 +9,40 @@ function Header() {
   const navigate = useNavigate();
   const [loggingOut, setLoggingOut] = useState(false);
   const [error, setError] = useState('');
+
+  const [adminUserId, setAdminUserId] = useState(null);
+  const isAdmin = Boolean(user && adminUserId === user.id);
+
+  useEffect(() => {
+    let active = true;
+
+    async function checkAdminStatus() {
+      setAdminUserId(null);
+
+      if (loading || !user) return;
+
+      const { data, error: adminError } = await supabase
+        .from('admin_users')
+        .select('user_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (!active) return;
+
+      if (adminError) {
+        setAdminUserId(null);
+        return;
+      }
+
+      setAdminUserId(data?.user_id ?? null);
+    }
+
+    checkAdminStatus();
+
+    return () => {
+      active = false;
+    };
+  }, [user, loading]);
 
   const handleLogout = async () => {
     setError('');
@@ -38,6 +73,12 @@ function Header() {
           <NavLink to="/wishlist">
             Want to Play
           </NavLink>
+
+          {isAdmin && (
+            <NavLink to="/admin">
+              Admin
+            </NavLink>
+          )}
         </nav>
 
         <div className="header-actions">
@@ -68,14 +109,22 @@ function Header() {
         <div className="mobile-auth">
           {!loading && (
             user ? (
-              <button
-                type="button"
-                className="logout-button"
-                onClick={handleLogout}
-                disabled={loggingOut}
-              >
-                {loggingOut ? 'Logging Out...' : 'Logout'}
-              </button>
+              <>
+                {isAdmin && (
+                  <Link to="/admin" className="admin-link">
+                    Admin
+                  </Link>
+                )}
+
+                <button
+                  type="button"
+                  className="logout-button"
+                  onClick={handleLogout}
+                  disabled={loggingOut}
+                >
+                  {loggingOut ? 'Logging Out...' : 'Logout'}
+                </button>
+              </>
             ) : (
               <Link to="/login" className="login-link">
                 Login
