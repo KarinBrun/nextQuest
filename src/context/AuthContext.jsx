@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
     return data;
   };
 
-  // Sign out and clear the local session.
+  // Sign out through Supabase and update authentication state.
   const logout = async () => {
     const { error } = await supabase.auth.signOut();
 

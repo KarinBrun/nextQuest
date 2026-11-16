@@ -1,11 +1,37 @@
+function normalizeCoverUrl(coverUrl) {
+  if (typeof coverUrl !== 'string') {
+    return null;
+  }
+
+  try {
+    const url = new URL(
+      coverUrl.startsWith('//') ? `https:${coverUrl}` : coverUrl
+    );
+
+    if (
+      url.protocol !== 'https:' ||
+      url.hostname !== 'images.igdb.com'
+    ) {
+      return null;
+    }
+
+    url.pathname = url.pathname.replace(
+      't_thumb',
+      't_cover_big'
+    );
+
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
+
 export function normalizeGame(game) {
   return {
     id: game.id,
     name: game.name,
 
-    background_image: game.cover?.url
-      ? `https:${game.cover.url.replace('t_thumb', 't_cover_big')}`
-      : null,
+    background_image: normalizeCoverUrl(game.cover?.url),
 
     rating: typeof game.rating === 'number'
       ? Number((game.rating / 20).toFixed(1))
