@@ -17,6 +17,7 @@ function DiscoverPage() {
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [genre, setGenre] = useState('');
   const [platform, setPlatform] = useState('');
+  const [sort, setSort] = useState('default');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -146,6 +147,24 @@ function DiscoverPage() {
     };
   }, [debouncedSearch, genre, platform]);
 
+  const sortedGames = [...games].sort((a, b) => {
+    switch (sort) {
+      case 'name-asc':
+        return a.name.localeCompare(b.name);
+
+      case 'name-desc':
+        return b.name.localeCompare(a.name);
+
+      case 'newest':
+        if (!a.released) return 1;
+        if (!b.released) return -1;
+        return b.released.localeCompare(a.released);
+
+      default:
+        return 0;
+    }
+  });
+
   return (
     <div className="discover-page">
       <section
@@ -167,6 +186,8 @@ function DiscoverPage() {
         setGenre={setGenre}
         platform={platform}
         setPlatform={setPlatform}
+        sort={sort}
+        setSort={setSort}
         genres={genres}
         platforms={platforms}
       />
@@ -181,7 +202,7 @@ function DiscoverPage() {
         {!loading && !error && (
           <>
             <div className="games-grid">
-              {games.map((game) => (
+              {sortedGames.map((game) => (
                 <GameCard key={game.id} game={game} />
               ))}
             </div>

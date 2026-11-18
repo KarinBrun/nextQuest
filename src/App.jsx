@@ -4,15 +4,16 @@ import {
   Route,
   useLocation,
 } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
 import Layout from './components/layout/Layout';
 
-import DiscoverPage from './pages/DiscoverPage';
-import GameDetailsPage from './pages/GameDetailsPage';
-import WantToPlayPage from './pages/WantToPlayPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import AdminPage from './pages/AdminPage';
+const DiscoverPage = lazy(() => import('./pages/DiscoverPage'));
+const GameDetailsPage = lazy(() => import('./pages/GameDetailsPage'));
+const WantToPlayPage = lazy(() => import('./pages/WantToPlayPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminRoute from './components/auth/AdminRoute';
 
@@ -25,29 +26,31 @@ function AppRoutes() {
 
   return (
     <>
-      <Routes location={backgroundLocation || location}>
-        <Route element={<Layout />}>
-          <Route path="/" element={<DiscoverPage />} />
-          <Route path="/games/:id" element={<GameDetailsPage />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/wishlist" element={<WantToPlayPage />} />
+      <Suspense fallback={<p role="status">Loading page...</p>}>
+        <Routes location={backgroundLocation || location}>
+          <Route element={<Layout />}>
+            <Route path="/" element={<DiscoverPage />} />
+            <Route path="/games/:id" element={<GameDetailsPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/wishlist" element={<WantToPlayPage />} />
+            </Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />       
+            <Route element={<AdminRoute />}>
+              <Route path="/admin" element={<AdminPage />} />
+            </Route>
           </Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />       
-          <Route element={<AdminRoute />}>
-            <Route path="/admin" element={<AdminPage />} />
-          </Route>
-        </Route>
-      </Routes>
-
-      {backgroundLocation && (
-        <Routes>
-          <Route
-            path="/games/:id"
-            element={<GameDetailsPage isModal />}
-          />
         </Routes>
-      )}
+
+        {backgroundLocation && (
+          <Routes>
+            <Route
+              path="/games/:id"
+              element={<GameDetailsPage isModal />}
+            />
+          </Routes>
+        )}
+      </Suspense>
     </>
   );
 }

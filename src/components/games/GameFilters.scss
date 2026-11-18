@@ -2,7 +2,7 @@
 
 .game-filters {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin: 24px 0;
 
@@ -60,6 +60,10 @@
     margin: 16px 0;
 
     .search-box {
+      grid-column: 1 / -1;
+    }
+
+    select:last-child {
       grid-column: 1 / -1;
     }
   }

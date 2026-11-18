@@ -17,14 +17,25 @@ NextQuest is deployed on Vercel.
 ## Features
 
 - **Game Discovery:** Browse a curated collection of 20 popular PC and console games.
+
 - **Game Search:** Search the IGDB catalog by game title.
+
 - **Genre and Platform Filters:** Narrow game results using genre and platform selections.
+- **Game Sorting:** Sort displayed games by default order, name (A-Z or Z-A), or newest release date first.
+
 - **Game Details:** View descriptions, ratings, release dates, genres, and supported platforms.
+
 - **User Authentication:** Register, verify an email address, log in, and log out using Supabase Authentication.
+
 - **Persistent Want to Play List:** Save and remove games from a personal wishlist that remains available across sessions.
+
 - **Protected Routes:** Restrict access to personal wishlists and administrator functionality based on authentication status.
+
 - **Administrator Dashboard:** Allow authorized administrators to view registered users and their registration dates.
+
 - **Responsive Design:** Provide desktop and mobile layouts with navigation adapted to different screen sizes.
+- **Lazy-Loaded Pages:** Use React.lazy and Suspense to load page components on demand, with Vite code splitting.
+
 - **Error Handling:** Display appropriate messages when authentication, database operations, or API requests fail.
 
 ## Technologies Used
@@ -32,28 +43,43 @@ NextQuest is deployed on Vercel.
 ### Frontend
 
 - React 19
+
 - Vite
+
 - JavaScript (JSX)
+
 - React Router
+
 - React Context API
+
 - SCSS
+
 - Lucide React
 
 ### Backend and Database
 
 - Vercel Serverless Functions
+
 - Supabase Authentication
+
 - Supabase PostgreSQL
+
 - Supabase Row Level Security (RLS)
+
 - IGDB API
+
 - Twitch OAuth 2.0
 
 ### Testing and Development
 
 - Vitest
+
 - React Testing Library
+
 - User Event
+
 - ESLint
+
 - Git and GitHub
 
 ### Deployment
@@ -63,23 +89,41 @@ NextQuest is deployed on Vercel.
 ## Project Structure
 
 ```text
+
 nextquest/
-├── api/                 # Vercel serverless API endpoints
-├── public/              # Public assets
+
+├── api/                 # Vercel serverless API endpoints
+
+├── public/              # Public assets
+
 ├── src/
-│   ├── assets/          # Images and other assets
-│   ├── components/      # Reusable React components
-│   │   ├── auth/        # Protected routes and admin access
-│   │   ├── games/       # Game display components
-│   │   └── layout/      # Navigation and layout
-│   ├── context/         # Authentication and wishlist state
-│   ├── pages/           # Application pages
-│   ├── services/        # API integration and Supabase client
-│   ├── styles/          # Shared SCSS styles
-│   └── test/            # Test configuration
+
+│   ├── assets/          # Images and other assets
+
+│   ├── components/      # Reusable React components
+
+│   │   ├── auth/        # Protected routes and admin access
+
+│   │   ├── games/       # Game display components
+
+│   │   └── layout/      # Navigation and layout
+
+│   ├── context/         # Authentication and wishlist state
+
+│   ├── pages/           # Application pages
+
+│   ├── services/        # API integration and Supabase client
+
+│   ├── styles/          # Shared SCSS styles
+
+│   └── test/            # Test configuration
+
 ├── eslint.config.js
+
 ├── vite.config.js
+
 └── package.json
+
 ```
 
 ## Getting Started
@@ -87,8 +131,11 @@ nextquest/
 ### Prerequisites
 
 - Node.js and npm
+
 - A Twitch Developer application with a Client ID and Client Secret
+
 - A Supabase project
+
 - Vercel CLI for local development
 
 ### Installation
@@ -96,14 +143,19 @@ nextquest/
 Clone the repository:
 
 ```bash
+
 git clone https://github.com/KarinBrun/nextquest.git
+
 cd nextquest
+
 ```
 
 Install dependencies:
 
 ```bash
+
 npm install
+
 ```
 
 ### Environment Variables
@@ -111,11 +163,15 @@ npm install
 Create a `.env.local` file in the project root containing:
 
 ```env
+
 TWITCH_CLIENT_ID=your_twitch_client_id
+
 TWITCH_CLIENT_SECRET=your_twitch_client_secret
 
 VITE_SUPABASE_URL=your_supabase_project_url
+
 VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+
 ```
 
 The Twitch credentials are accessed only through serverless functions and are not exposed to the React frontend.
@@ -131,7 +187,9 @@ A separate Supabase project must also be configured with the required database t
 Start the application using Vercel CLI:
 
 ```bash
+
 npx vercel dev
+
 ```
 
 Open the local URL displayed in the terminal, typically `http://localhost:3000`.
@@ -169,13 +227,21 @@ The administrator dashboard is read-only.
 NextQuest incorporates several security practices:
 
 - **JWT Authentication:** Supabase manages access tokens, session persistence, and token refreshing.
+
 - **Protected Routes:** Authentication and administrator checks restrict access to protected pages.
+
 - **Row Level Security:** Database policies prevent users from accessing other users' wishlist records.
+
 - **XSS Protection:** React escapes text rendered through JSX. External game descriptions are displayed as text rather than injected HTML.
+
 - **Image URL Validation:** Game cover URLs are restricted to HTTPS images from the expected IGDB image domain.
+
 - **CSRF Risk Reduction:** Supabase database requests use bearer-token authentication rather than relying on automatically attached session cookies. The application does not use cookie-based authentication for its custom API endpoints.
+
 - **Input Validation:** Serverless functions validate game, genre, and platform identifiers and escape search terms used in IGDB queries.
+
 - **Environment Variables:** Twitch credentials are stored in server-side environment variables.
+
 - **Error Handling:** API responses use generic error messages without exposing credentials.
 
 Supabase's browser client stores persistent authentication sessions in browser storage. Because JavaScript can access this storage, preventing XSS remains an important security consideration.
@@ -188,12 +254,17 @@ Vercel serverless functions handle Twitch authentication and communicate with IG
 
 ### API Endpoints
 
-| Endpoint | Purpose |
-|---|---|
-| `/api/games` | Retrieve curated games or search and filter the IGDB catalog |
-| `/api/game` | Retrieve detailed information for a specific game |
-| `/api/genres` | Retrieve available game genres |
-| `/api/platforms` | Retrieve available gaming platforms |
+\| Endpoint | Purpose |
+
+\|---|---|
+
+\| `/api/games` | Retrieve curated games or search and filter the IGDB catalog |
+
+\| `/api/game` | Retrieve detailed information for a specific game |
+
+\| `/api/genres` | Retrieve available game genres |
+
+\| `/api/platforms` | Retrieve available gaming platforms |
 
 Game data is normalized before being displayed in React components.
 
@@ -205,23 +276,38 @@ API requests include error handling for failed responses and unavailable games.
 
 NextQuest uses Vitest and React Testing Library for automated testing.
 
-The current test suite contains **37 passing tests**.
+The current test suite contains **44 passing tests**.
 
 Tests cover:
 
 - Game card functionality
+
 - Wishlist additions, removals, and duplicate prevention
+
 - Game data normalization
+
 - Image URL validation
+
 - API requests and response handling
+
 - Search parameter encoding
+
 - API errors and missing games
+
 - User registration and login
+
 - Authentication errors and state changes
+
 - Logout behavior
+
 - Protected route redirects
+
 - Administrator authorization
+
 - Database errors during administrator verification
+- Sorting dropdown options and selection changes
+- Default, alphabetical, and newest-first game ordering
+- Verification that changing sort order does not trigger another game API request
 
 Supabase and API requests are mocked in unit tests to verify application behavior without relying on external services.
 
@@ -230,19 +316,25 @@ Authentication, wishlist persistence, and administrator access have also been ma
 ### Run Tests
 
 ```bash
+
 npm run test -- --run
+
 ```
 
 ### Run ESLint
 
 ```bash
+
 npm run lint
+
 ```
 
 ### Create a Production Build
 
 ```bash
+
 npm run build
+
 ```
 
 The application has successfully passed all three checks.
@@ -258,10 +350,15 @@ Changes pushed to the main branch trigger production deployments.
 The following environment variables must be configured in Vercel:
 
 ```env
+
 TWITCH_CLIENT_ID
+
 TWITCH_CLIENT_SECRET
+
 VITE_SUPABASE_URL
+
 VITE_SUPABASE_PUBLISHABLE_KEY
+
 ```
 
 Twitch credentials are used exclusively by serverless functions.
@@ -302,12 +399,18 @@ NextQuest was developed as a React course project, with an emphasis on authentic
 
 Potential future improvements include:
 
-- Additional game discovery and sorting options
+- Additional game discovery options and more sorting criteria
+
 - Custom user profiles
+
 - Wishlist organization and categories
+
 - Improved loading states and error recovery
-- Expanded automated testing
-- Performance optimization through lazy loading and code splitting
+
+- Further automated testing, including additional integration scenarios
+
+- Further performance improvements and loading-state refinements
+
 - Additional accessibility improvements
 
 Game availability and search results depend on the external IGDB API.
@@ -317,4 +420,5 @@ Game availability and search results depend on the external IGDB API.
 **Karin Brun**
 
 - Portfolio: https://karinbrun.name
+
 - GitHub: https://github.com/KarinBrun

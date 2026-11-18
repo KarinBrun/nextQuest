@@ -8,6 +8,8 @@ function GameFilters({
   setGenre,
   platform,
   setPlatform,
+  sort,
+  setSort,
   genres = [],
   platforms = [],
 }) {
@@ -48,6 +50,17 @@ function GameFilters({
             {item.name}
           </option>
         ))}
+      </select>
+
+      <select
+        value={sort}
+        onChange={(e) => setSort(e.target.value)}
+        aria-label="Sort games"
+      >
+        <option value="default">Default Order</option>
+        <option value="name-asc">Name (A-Z)</option>
+        <option value="name-desc">Name (Z-A)</option>
+        <option value="newest">Newest First</option>
       </select>
     </div>
   );
